@@ -60,6 +60,19 @@ class Board
             puts row.join(" ")
         end
     end
+
+    def won?
+        @grid.all? do |row|
+            row.all? { |ele| ele.hidden == false }
+        end
+    end
+
+    def reveal(pos)
+        self[pos].hidden = false
+        render
+        self[pos].reveal
+    end
+
 end
 
 # b = Board.new(4)

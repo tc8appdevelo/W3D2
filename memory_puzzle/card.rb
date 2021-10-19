@@ -8,6 +8,10 @@ class Card
         @hidden
     end
 
+    def hidden=(val)
+        @hidden = val
+    end
+
     # def display
     #     if !@hidden
     #         return @face_value 
