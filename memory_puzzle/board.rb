@@ -47,6 +47,7 @@ class Board
     end
 
     def render
+        # debugger
         printed = @grid.map do |array|
             array.map do |ele| 
                 if ele.hidden == true
@@ -56,6 +57,7 @@ class Board
                 end
             end
         end
+        # debugger
         printed.each do |row|
             puts row.join(" ")
         end
@@ -69,12 +71,13 @@ class Board
 
     def reveal(pos)
         self[pos].hidden = false
-        render
         self[pos].reveal
+        render
+        # self[pos].hidden = true
     end
 
 end
 
-# b = Board.new(4)
-# b.populate
-# # b.render
+b = Board.new(4)
+b.populate
+# b.render

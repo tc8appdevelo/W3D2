@@ -2,6 +2,7 @@ class Card
     def initialize(face_value)
         @face_value = face_value
         @hidden = true
+        # @found = false
     end
 
     def hidden

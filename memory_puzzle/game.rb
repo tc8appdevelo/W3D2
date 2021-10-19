@@ -1,5 +1,6 @@
 require_relative 'board'
 require_relative 'card'
+require 'byebug'
 
 class Game
     attr_writer :previous_pos
@@ -20,34 +21,38 @@ class Game
             puts 'Enter a position separated by a comma ie 0,1'
             pos = gets.chomp.split(',').map(&:to_i)
             make_guess(pos)
+            @board.render
         end
         puts "Victory!"
     end
 
     def make_guess(pos)
-        if @guessed.include?(pos)
+        # debugger
+        if @guessed.include?(pos) || @guessed.include?(@previous_pos)
             return puts "already guessed"
         end
-        if @previous_pos == nil && 
-            @board[pos].hidden = false
-            @previous_pos = pos
+        if @previous_pos == nil 
+            # @board[pos].reveal
+            @board.reveal(pos)
+            @previous_pos = pos #[0,0]
+        # elsif @previous_pos == pos
+        #     return 
         elsif (@board[pos].reveal == @board[@previous_pos].reveal) 
             @board[pos].hidden = false
+            @board[@previous_pos].hidden = false
             @guessed << pos
             @guessed << @previous_pos
             @previous_pos = nil
-        elsif @guessed.include?(pos)
-            @board[pos].hidden = false
         else
             @board.reveal(pos)
-            @board[pos].hidden = true
+            @board[pos].hidden = false
             @board[@previous_pos].hidden = true
+            @previous_pos = pos
         end
         puts
         puts
-        @board.render
-        puts
-        puts
+ 
     end
 
+  
 end
