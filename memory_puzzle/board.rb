@@ -1,4 +1,5 @@
 require_relative "card"
+require 'byebug'
 
 class Board
     def initialize(n)
@@ -29,12 +30,13 @@ class Board
         hash = Hash.new(0)
         a_idx = 0
         while empty_positions?
+            # debugger
             row = rand(@grid.length)
             col = rand(@grid.length)
             pos = [row, col]
             if self[pos] == nil
                 val = alphabet[a_idx]
-                self[pos] = Card.new(val, false)
+                self[pos] = Card.new(val)
                 hash[alphabet[a_idx]] += 1
                 if hash[alphabet[a_idx]] == 2
                     a_idx += 1
@@ -46,10 +48,20 @@ class Board
 
     def render
         printed = @grid.map do |array|
-            array.map { |ele| ele.display}
+            array.map do |ele| 
+                if ele.hidden == true
+                    ele.hide
+                else
+                    ele.reveal
+                end
+            end
         end
         printed.each do |row|
             puts row.join(" ")
         end
     end
 end
+
+# b = Board.new(4)
+# b.populate
+# # b.render

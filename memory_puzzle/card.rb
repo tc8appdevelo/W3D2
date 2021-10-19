@@ -1,19 +1,23 @@
 class Card
-    def initialize(face_value, hidden)
+    def initialize(face_value)
         @face_value = face_value
         @hidden = true
     end
 
-    def display
-        if !@hidden
-            return @face_value 
-        else
-            return "X"
-        end
+    def hidden
+        @hidden
     end
 
+    # def display
+    #     if !@hidden
+    #         return @face_value 
+    #     else
+    #         return "X"
+    #     end
+    # end
+
     def hide
-        return " "
+        return "X"
     end
 
     def reveal
