@@ -13,19 +13,43 @@ class Board
         @grid[pos[0]][pos[1]] = val
     end
 
-    def populate
-        alphabet = ("a".."z").to_a
-        alpha_idx = 0
-        @grid.each_with_index do |array, idx_1|
-            array.each_with_index do |card, idx_2|
-                row = rand(@grid.length)
-                col = rand(@grid.length)
-                pos = [row,col]
-                if self[pos] == nil
-                    self[pos] = alphabet[alpha_idx]
-                    alpha_idx += 1
+    def empty_positions?
+        @grid.each do |arr|
+            arr.each do |ele|
+                if ele == nil
+                    return true
                 end
             end
+        end
+        false
+    end
+
+    def populate
+        alphabet = ("a".."z").to_a
+        hash = Hash.new(0)
+        a_idx = 0
+        while empty_positions?
+            row = rand(@grid.length)
+            col = rand(@grid.length)
+            pos = [row, col]
+            if self[pos] == nil
+                val = alphabet[a_idx]
+                self[pos] = Card.new(val, false)
+                hash[alphabet[a_idx]] += 1
+                if hash[alphabet[a_idx]] == 2
+                    a_idx += 1
+                end
+            end
+        end
+        @grid
+    end
+
+    def render
+        printed = @grid.map do |array|
+            array.map { |ele| ele.display}
+        end
+        printed.each do |row|
+            puts row.join(" ")
         end
     end
 end

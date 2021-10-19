@@ -4,11 +4,11 @@ class Card
         @hidden = true
     end
 
-    def dispaly
+    def display
         if !@hidden
             return @face_value 
         else
-            return " "
+            return "X"
         end
     end
 
@@ -20,7 +20,7 @@ class Card
         return @face_value
     end
 
-    
+
 
 
 
